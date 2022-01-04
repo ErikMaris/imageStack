@@ -20,7 +20,7 @@ The image is stored in an instance of the imageStack class in iStack.I.
 
 Alternatively, use the fast tiff loader for .tif and .tiff 3D image stacks
 ```
-iStack = importTifStack('path/to/my/file.tif',stackLabel);
+iStack = imageStack.importTifStack('path/to/my/file.tif',stackLabel);
 ```
 with stackLabel the label of the 3rd dimension, which can either be 'z', 't', or 'c'. The first dimensions are assumed to be 'x' and 'y'.
 
