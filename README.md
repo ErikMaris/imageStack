@@ -13,14 +13,14 @@ doc imageStack
 
 To load an image via the BioFormats reader into the imageStack class 'iStack', type 
 ```
-iStack = imageStack.import('path/to/my/file.tiff')
+iStack = imageStack.import('path/to/my/file.nd2')
 ```
 Make sure the BioFormats package is in the MATLAB path and the 'bioformats_package.jar' is in the java path, see https://nl.mathworks.com/help/matlab/ref/javaaddpath.html. A list of the supported formats can be found here: https://docs.openmicroscopy.org/bio-formats/5.8.2/supported-formats.html and is not limited to .nd2 files.
 The image is stored in an instance of the imageStack class in iStack.I. 
 
 Alternatively, use the fast tiff loader for .tif and .tiff 3D image stacks
 ```
-iStack = importTifStack('path/to/my/file.nd2',stackLabel);
+iStack = importTifStack('path/to/my/file.tif',stackLabel);
 ```
 with stackLabel the label of the 3rd dimension, which can either be 'z', 't', or 'c'. The first dimensions are assumed to be 'x' and 'y'.
 
