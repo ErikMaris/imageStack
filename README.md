@@ -13,7 +13,7 @@ doc imageStack
 
 To load an image via the BioFormats reader into the imageStack class 'iStack', type 
 ```
-iStack = imageStack.import('path/to/my/file.nd2')
+iStack = imageStack.import('path/to/my/file.tiff')
 ```
 Make sure the BioFormats package is in the MATLAB path and the 'bioformats_package.jar' is in the java path, see https://nl.mathworks.com/help/matlab/ref/javaaddpath.html. A list of the supported formats can be found here: https://docs.openmicroscopy.org/bio-formats/5.8.2/supported-formats.html and is not limited to .nd2 files.
 The image is stored in an instance of the imageStack class in iStack.I. 
