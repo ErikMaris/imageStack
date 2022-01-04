@@ -1,4 +1,53 @@
-# [PROJECT NAME]
+# imageStack
+
+MATLAB class for handling (hyperdimensional) images.
+
+## Documentation
+
+The documentation for scripting can be called by typing in the MATLAB command line
+```
+doc imageStack
+```
+
+## Getting started
+
+To load an image via the BioFormats reader into the imageStack class 'iStack', type 
+```
+iStack = imageStack.import('path/to/my/file.nd2')
+```
+Make sure the BioFormats package is in the MATLAB path and the 'bioformats_package.jar' is in the java path, see https://nl.mathworks.com/help/matlab/ref/javaaddpath.html. A list of the supported formats can be found here: https://docs.openmicroscopy.org/bio-formats/5.8.2/supported-formats.html and is not limited to .nd2 files.
+The image is stored in an instance of the imageStack class in iStack.I. 
+
+Alternatively, use the fast tiff loader for .tif and .tiff 3D image stacks
+```
+iStack = importTifStack('path/to/my/file.nd2',stackLabel);
+```
+with stackLabel the label of the 3rd dimension, which can either be 'z', 't', or 'c'. The first dimensions are assumed to be 'x' and 'y'.
+
+A final option is to load an array directly in imageStack
+```
+iStack = imageStack();
+iStack = iStack.addImage(I,'label1',...,'labelN');
+% for example:
+iStack = iStack.addImage(I,'x','y','c');
+```
+where I is the image array and the 'label1' ... 'labelN' the labels of the 1st ... Nth dimensions respectively. Allowed labels are: 'x','y','z','t','c'.
+
+Now plot the stored image directly via 
+```
+figure; iStack.plotImage;
+```
+
+To get the image without dimensionality reduction, i.e. all dimensions in the image are requested, type
+```
+I = iStack.getReducedImage('reshaped','label1',...,'labelN');
+% for example:
+I = iStack.getReducedImage('reshaped','c','x','y');
+```
+following the same difinition as above. To request the image with fewer dimensions that present in data set, use e.g. 'mean' or 'sum' to take the average or sum of the reduced dimension
+```
+I = iStack.getReducedImage('mean','c','x','y');
+```
 
 ## Project organization
 - PG = project-generated
