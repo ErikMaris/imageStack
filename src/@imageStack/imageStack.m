@@ -427,7 +427,15 @@ classdef imageStack
                     % function
                     error('Mask dimension must be requested, otherwise masking fails. Can be fixed in a future release.')
                 end
-                I = bsxfun(@times, I, cast(Imask, 'like', I));
+                if isinteger(I)
+                    % allow for NaN
+                    Imask = single(Imask);
+                    Imask(Imask == 0) = nan; % set 0 to nan
+                    I = bsxfun(@times, single(I), Imask);
+                else
+                    % single and double natively support NaN
+                    I = bsxfun(@times, I, cast(Imask, 'like', I));
+                end
             end
             
         end
