@@ -545,6 +545,22 @@ classdef imageStack
             end
             
         end
+
+        function obj = setValue(obj,idx,value)
+            %SETVALUE helper function to set value of I by superclasses
+            %
+            %   Usage:
+            %   obj = setValue(obj,idx,value) with idx the linear
+            %   index/indices of the image I and value the value(s) set at
+            %   the indices. If idx and value have the same number of
+            %   elements, the ii-th value overwrites the ii-th idx.
+
+            if (numel(idx) > 1 && numel(value) > 1) && numel(idx) ~= numel(value) 
+                error('Incompatible idx and value. See help setValue for more info.')
+            end
+            
+            obj.I(idx) = value;
+        end
         
     end
     
