@@ -279,9 +279,9 @@ classdef imageStack
                     case 'mean'
                         Ir = mean(Ir,idxDimThrow);
                     case 'max'
-                        Ir = max(Ir,idxDimThrow);
+                        Ir = max(Ir,[],idxDimThrow);
                     case 'min'
-                        Ir = min(Ir,idxDimThrow);
+                        Ir = min(Ir,[],idxDimThrow);
                     case 'reshaped'
                         Ir = obj.getReshapedImage(varargin{:}); % call function
                     otherwise
