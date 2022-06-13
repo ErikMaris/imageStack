@@ -248,6 +248,8 @@ classdef imageStack
             %   options are:
             %       - 'sum': dimensions are summed together
             %       - 'mean': the mean of the dimensions is taken
+            %       - 'max': the maximum value of the dimensions is taken
+            %       - 'min': the minimum value of the dimensions is taken
             %       - 'reshaped': the getReshapedImage function is called
             
             if any(~ismember(varargin,obj.allowedLabels))
@@ -276,6 +278,10 @@ classdef imageStack
                         Ir = sum(Ir,idxDimThrow);
                     case 'mean'
                         Ir = mean(Ir,idxDimThrow);
+                    case 'max'
+                        Ir = max(Ir,idxDimThrow);
+                    case 'min'
+                        Ir = min(Ir,idxDimThrow);
                     case 'reshaped'
                         Ir = obj.getReshapedImage(varargin{:}); % call function
                     otherwise
