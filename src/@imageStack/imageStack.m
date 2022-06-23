@@ -601,7 +601,10 @@ classdef imageStack
                   end
             else
                 % file selection dialog
-                  [files, path, ~] = uigetfile(bfGetFileExtensions, 'Choose a file to open','Multiselect','on');
+                  [files, path, idx] = uigetfile(bfGetFileExtensions, 'Choose a file to open','Multiselect','on');
+                  if idx == 0
+                      return
+                  end
                   nFiles = size(files,2);      
                   dataAll={};
                   if iscell(files) % user selected multiple files
