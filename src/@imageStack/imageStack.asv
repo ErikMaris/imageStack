@@ -573,10 +573,7 @@ classdef imageStack
             % SETTAG helper function to set the tag of the imageStack
             %
             %   Usage:
-            %   obj = setTag(obj,tag) sets the tag field of the object(s).
-            %   tag can either be a char: the same tag is set to all
-            %   objects, or a cell: each individual tag in the cell is set
-            %   to an object.
+            
             
             if ~iscell(tag)
                 if numel(obj) > 1
@@ -619,7 +616,7 @@ classdef imageStack
             if ischar(filepath)
                 % single file; string
                 dataAll = bfopen(filepath);
-                [~, tag, ~] = fileparts(filepath);
+                [~, tag, ~] = fullfile(filepath);
             elseif iscell(filepath)
                 % multiple files; cell string
                   nFiles = numel(filepath);      
@@ -628,7 +625,7 @@ classdef imageStack
                   for ii=1:nFiles
                       data = bfopen(filepath{ii});           
                       dataAll = [dataAll; data];
-                      [~, tag{ii}, ~] = fileparts(filepath{ii});
+                      [~, tag{ii}, ~] = fullfile(filepath{1});
                   end
             else
                 % file selection dialog
@@ -643,11 +640,11 @@ classdef imageStack
                       for ii=1:nFiles
                           data = bfopen(fullfile(path, files{ii}));             
                           dataAll = [dataAll; data];
-                          [~, tag{ii}, ~] = fileparts(files{ii});
+                          [~, tag{ii}, ~] = fullfile(files{ii});
                       end
                   else % user selected single file
                       dataAll = bfopen(fullfile(path, files));
-                      [~, tag, ~] = fileparts(files);
+                      [~, tag, ~] = fullfile(files);
                   end
             end
             
@@ -731,22 +728,20 @@ classdef imageStack
             
             imageStackArray = imageStack.empty(numel(filepath),0);
             for ii = 1:numel(filepath)
-                warning('off','all') % Suppress all the tiff warnings
-                tstack  = Tiff(filepath{ii});
-                [I,J] = size(tstack.read());
-                K = length(imfinfo(filepath{ii}));
-                image = zeros(I,J,K);
-                image(:,:,1)  = tstack.read();
-                for n = 2:K
-                    tstack.nextDirectory()
-                    image(:,:,n) = tstack.read();
-                end
-                warning('on','all')
+            warning('off','all') % Suppress all the tiff warnings
+            tstack  = Tiff(filepath{ii});
+            [I,J] = size(tstack.read());
+            K = length(imfinfo(filepath{ii}));
+            image = zeros(I,J,K);
+            image(:,:,1)  = tstack.read();
+            for n = 2:K
+                tstack.nextDirectory()
+                image(:,:,n) = tstack.read();
+            end
+            warning('on','all')
                 imageStackArray(ii) = imageStack();
                 imageStackArray(ii) = imageStackArray(ii).addImage(image,'x','y',stackLabel);
                 imageStackArray(ii) = imageStackArray(ii).setUnit([],[],[],[],[]); % unknown
-                [~, tag, ~] = fileparts(files);
-                imageStackArray(ii).tag = tag;
             end
             
         end
