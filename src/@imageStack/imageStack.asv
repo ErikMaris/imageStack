@@ -601,11 +601,6 @@ classdef imageStack
             %   Usage:
             %   obj = binImageFirst2Dims(obj,binFactor,varargin) bins the
             %   first two dimensions of the image in obj with positive,
-            %   nonzero, integer binfactor. Varargin are the labels of the
-            %   dimensions, where the binning is performed over the first
-            %   two. Please make sure that all labels in dimLabel are in
-            %   the labels. The output is the same obj, but with the binned
-            %   image.
 
             if ~isnumeric(binFactor)
                 error('Please provide valid bin factor.')
