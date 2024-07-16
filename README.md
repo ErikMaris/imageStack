@@ -80,4 +80,4 @@ I = iStack.getReducedImage('mean','c','x','y');
 
 ## License
 
-This project is licensed under the terms of the [MIT License](/LICENSE.md)
+This project is licensed under the terms of the [GPL-3.0 License](/LICENSE.md)
